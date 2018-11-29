@@ -52,7 +52,7 @@ public class Order {
     private String   m_settlingFirm;
     private String   m_clearingAccount; // True beneficiary of the order
     private String   m_clearingIntent; // "" (Default), "IB", "Away", "PTA" (PostTrade)
-    
+
     // secondary attributes
     private boolean m_allOrNone;
     private boolean m_blockOrder;
@@ -124,7 +124,7 @@ public class Order {
     private boolean m_whatIf;
     private boolean m_transmit = true; // if false, order will be sent to TWS but not transmitted to server
     private boolean m_overridePercentageConstraints;
-    
+
     // Institutional orders only
     private String m_openClose = "O"; // O=Open, C=Close
     private int    m_origin;          // 0=Customer, 1=Firm
@@ -134,7 +134,7 @@ public class Order {
     private String m_deltaNeutralSettlingFirm;
     private String m_deltaNeutralClearingAccount;
     private String m_deltaNeutralClearingIntent;
-    
+
     // SMART routing only
     private double  m_discretionaryAmt = Double.MAX_VALUE;
     private boolean m_eTradeOnly;
@@ -163,13 +163,13 @@ public class Order {
 
     // order misc options
     private List<TagValue> m_orderMiscOptions;
-    
+
     //order algo id
 	private boolean m_solicited;
-	
+
 	private boolean m_randomizeSize;
 	private boolean m_randomizePrice;
-	
+
 	//VER PEG2BENCH fields:
 	private int m_referenceContractId;
 	private double m_peggedChangeAmount;
@@ -183,17 +183,17 @@ public class Order {
 	private double m_adjustedTrailingAmount = Double.MAX_VALUE;
 	private int m_adjustableTrailingUnit;
 	private double m_lmtPriceOffset = Double.MAX_VALUE;
-	
+
 	private List<OrderCondition> m_conditions = new ArrayList<>();
 	private boolean m_conditionsCancelOrder;
 	private boolean m_conditionsIgnoreRth;
-    
+
     // models
     private String m_modelCode;
-    
+
 	private String m_extOperator;
 	private SoftDollarTier m_softDollarTier;
-	
+
 	// native cash quantity
 	private double m_cashQty = Double.MAX_VALUE;
 
@@ -454,7 +454,7 @@ public class Order {
     public Order() {
         m_activeStartTime = EMPTY_STR;
         m_activeStopTime = EMPTY_STR;
-    	m_outsideRth = false;
+    	m_outsideRth = true;
         m_origin = CUSTOMER;
         m_designatedLocation = EMPTY_STR;
         m_optOutSmartRouting = false;
@@ -489,7 +489,7 @@ public class Order {
         if( m_algoParams == null ) {
             m_algoParams = new ArrayList<>();
         }
-        return m_algoParams; 
+        return m_algoParams;
     }
 
     @Override
@@ -563,7 +563,7 @@ public class Order {
         	m_notHeld != l_theOther.m_notHeld ||
         	m_exemptCode != l_theOther.m_exemptCode ||
         	m_randomizePrice != l_theOther.m_randomizePrice ||
-            m_randomizeSize != l_theOther.m_randomizeSize ||        
+            m_randomizeSize != l_theOther.m_randomizeSize ||
         	m_solicited != l_theOther.m_solicited ||
         	m_referenceContractId != l_theOther.m_referenceContractId ||
         	m_peggedChangeAmount != l_theOther.m_peggedChangeAmount ||
@@ -612,7 +612,7 @@ public class Order {
         	Util.StringCompare(m_algoId, l_theOther.m_algoId) != 0 ||
         	Util.StringCompare(m_scaleTable, l_theOther.m_scaleTable) != 0 ||
         	Util.StringCompare(m_modelCode, l_theOther.m_modelCode) != 0 ||
-        	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0 || 
+        	Util.StringCompare(m_referenceExchangeId, l_theOther.m_referenceExchangeId) != 0 ||
         	Util.StringCompare(m_extOperator, l_theOther.m_extOperator) != 0) {
         	return false;
         }
@@ -629,11 +629,11 @@ public class Order {
         if (!Util.listsEqualUnordered(m_orderComboLegs, l_theOther.m_orderComboLegs)) {
         	return false;
         }
-        
+
         if (!Util.listsEqualUnordered(m_conditions, l_theOther.m_conditions)) {
         	return false;
         }
-        
+
         return true;
     }
 
